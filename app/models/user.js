@@ -10,7 +10,6 @@ var bcrypt = require('bcryptjs'),
     hash = require('node_hash'),
     mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
-    validate = require('mongoose-validate'),
     settings = require('./../config');
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -24,18 +23,7 @@ var UserSchema = new mongoose.Schema({
     uid: {
         type: String,
         required: false,
-        trim: true,
-        validate: [function(v) {
-            return (v.length <= 24);
-        }, 'invalid ldap/kerberos username']
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true,
-        unique: true,
-        validate: [ validate.email, 'invalid email address' ]
+        trim: true
     },
     password: {
         type: String,
@@ -53,16 +41,6 @@ var UserSchema = new mongoose.Schema({
     token: {
         type: String,
         required: false,
-        trim: true
-    },
-    firstName: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    lastName: {
-        type: String,
-        required: true,
         trim: true
     },
     username: {
@@ -112,10 +90,7 @@ UserSchema.virtual('local').get(function() {
 });
 
 UserSchema.virtual('avatar').get(function() {
-    if (!this.email) {
-      return null;
-    }
-    return md5(this.email);
+    return null;
 });
 
 UserSchema.pre('save', function(next) {
@@ -138,10 +113,8 @@ UserSchema.statics.findByIdentifier = function(identifier, cb) {
 
     if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
         opts.$or = [{_id: identifier}, {username: identifier}];
-    } else if (identifier.indexOf('@') === -1) {
-        opts.username = identifier;
     } else {
-        opts.email = identifier;
+        opts.username = identifier;
     }
 
     this.findOne(opts, cb);

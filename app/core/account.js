@@ -27,17 +27,8 @@ AccountManager.prototype.update = function(id, options, cb) {
             return cb(err);
         }
 
-        if (options.firstName) {
-            user.firstName = options.firstName;
-        }
-        if (options.lastName) {
-            user.lastName = options.lastName;
-        }
         if (options.displayName) {
             user.displayName = options.displayName;
-        }
-        if (options.email) {
-            user.email = options.email;
         }
 
         if (options.openRooms) {

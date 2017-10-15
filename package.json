@@ -79,7 +79,6 @@
     "moment": "^2.14.1",
     "mongoose": "^4.5.5",
     "mongoose-unique-validator": "^1.0.2",
-    "mongoose-validate": "0.0.5",
     "multer": "^1.1.0",
     "node-xmpp-server": "^2.2.0",
     "node_hash": "^0.2.0",

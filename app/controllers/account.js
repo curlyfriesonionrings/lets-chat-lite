@@ -122,7 +122,6 @@ module.exports = function() {
             var form = req.body || req.data,
                 data = {
                     username: form.username,
-                    email: form.email,
                     currentPassword: form.password ||
                         form['current-password'] || form.currentPassword,
                     newPassword: form['new-password'] || form.newPassword,
@@ -236,7 +235,6 @@ module.exports = function() {
             var data = {
                 provider: 'local',
                 username: fields.username,
-                email: fields.email,
                 password: fields.password,
                 firstName: fields.firstName || fields.firstname || fields['first-name'],
                 lastName: fields.lastName || fields.lastname || fields['last-name'],
